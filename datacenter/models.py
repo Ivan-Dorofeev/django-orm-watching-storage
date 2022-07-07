@@ -1,3 +1,6 @@
+import datetime
+import zoneinfo
+
 from django.db import models
 
 
@@ -28,3 +31,18 @@ class Visit(models.Model):
                 if self.leaved_at else 'not leaved'
             )
         )
+
+
+def get_duration(visit):
+    """рассчитывает длительность визита"""
+    now_time = datetime.datetime.now(datetime.timezone.utc)
+    diff_times = now_time - visit.entered_at
+    return diff_times
+
+
+def format_duration(duration):
+    """Превращает длительность визита в строку, готовит к выводу на страницу."""
+    hours, rem = divmod(duration.seconds, 3600)
+    minutes, seconds = divmod(rem, 60)
+    return f'{hours}:{minutes}:{seconds}'
+
