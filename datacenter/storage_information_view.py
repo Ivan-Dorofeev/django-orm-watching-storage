@@ -8,9 +8,11 @@ def storage_information_view(request):
 
     visits = Visit.objects.filter(leaved_at=None)
     for visit in visits:
+        # продолжительность
         duration = get_duration(visit)
         duration_str = format_duration(duration)
 
+        # подозрительность
         if duration.total_seconds() > 600:
             is_strange = True
         else:
