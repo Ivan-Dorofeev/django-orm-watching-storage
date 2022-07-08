@@ -9,9 +9,9 @@ def passcard_info_view(request, get_passcode):
     visits = []
 
     passcard_from_passcode = Passcard.objects.get(passcode=get_passcode)
-    visits_serialized = Visit.objects.filter(passcard=passcard_from_passcode)
+    visits_from_passcard = Visit.objects.filter(passcard=passcard_from_passcode)
 
-    for visit in visits_serialized:
+    for visit in visits_from_passcard:
         entered_at = visit.entered_at
 
         duration = get_duration(visit)
