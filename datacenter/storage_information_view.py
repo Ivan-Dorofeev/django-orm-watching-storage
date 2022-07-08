@@ -6,15 +6,12 @@ from django.shortcuts import render
 def storage_information_view(request):
     non_closed_visits = []
 
-    non_leaved_visits = Visit.objects.filter(leaved_at=None)
-    for visit in non_leaved_visits:
+    non_closed_visits_serialized = Visit.objects.filter(leaved_at=None)
+    for visit in non_closed_visits_serialized:
         duration = get_duration(visit)
         duration_str = format_duration(duration)
 
-        if duration.total_seconds() > 600:
-            is_strange = True
-        else:
-            is_strange = False
+        is_strange = duration.total_seconds() > 600
 
         non_closed_visits.append({
             'who_entered': visit.passcard,
