@@ -36,8 +36,8 @@ class Visit(models.Model):
 def get_duration(visit):
     """рассчитывает длительность визита"""
     now_time = datetime.datetime.now(datetime.timezone.utc)
-    diff_times = now_time - visit.entered_at
-    return diff_times
+    times_diff = now_time - visit.entered_at
+    return times_diff
 
 
 def format_duration(duration):
