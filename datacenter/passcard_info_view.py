@@ -6,12 +6,12 @@ from django.shortcuts import render
 
 
 def passcard_info_view(request, get_passcode):
-    visits = []
+    serialized_visits = []
 
     passcard_from_passcode = Passcard.objects.get(passcode=get_passcode)
-    serialized_visits = Visit.objects.filter(passcard=passcard_from_passcode)
+    visits_from_passcard = Visit.objects.filter(passcard=passcard_from_passcode)
 
-    for visit in serialized_visits:
+    for visit in visits_from_passcard:
         entered_at = visit.entered_at
 
         duration = get_duration(visit)
@@ -20,7 +20,7 @@ def passcard_info_view(request, get_passcode):
         is_strange = (not visit.leaved_at and duration.total_seconds() > 3600) or (
                     visit.leaved_at - visit.entered_at).total_seconds() > 3600
 
-        visits.append({
+        serialized_visits.append({
             'entered_at': entered_at,
             'duration': duration_str,
             'is_strange': is_strange
@@ -28,6 +28,6 @@ def passcard_info_view(request, get_passcode):
 
     context = {
         'passcard': passcard_from_passcode,
-        'this_passcard_visits': visits
+        'this_passcard_visits': serialized_visits
     }
     return render(request, 'passcard_info.html', context)
