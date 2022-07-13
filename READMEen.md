@@ -31,5 +31,5 @@ Python3 should already be installed. Then use pip (or pip3, there is a conflict 
 >***python manage.py runserver***
 
 ## Useful links
-Если есть вопросы, можете обратиться ко мне на почту: 
+If you got any questions, please contact me: 
 __axxel123@rambler.ru__
