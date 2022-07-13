@@ -5,10 +5,10 @@ from datacenter.models import Visit
 from django.shortcuts import render
 
 
-def passcard_info_view(request, get_passcode):
+def passcard_info_view(request, passcode):
     serialized_visits = []
 
-    passcard_from_passcode = Passcard.objects.get(passcode=get_passcode)
+    passcard_from_passcode = Passcard.objects.get(passcode=passcode)
     visits_from_passcard = Visit.objects.filter(passcard=passcard_from_passcode)
 
     for visit in visits_from_passcard:
