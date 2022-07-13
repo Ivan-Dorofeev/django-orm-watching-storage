@@ -1,24 +1,19 @@
 import os
+
+import dj_database_url
 from environs import Env
+
 env = Env()
 env.read_env()
 
 DATABASES = {
-    'default': {
-        'ENGINE': env('ENGINE'),
-        'HOST': env('HOST'),
-        'PORT': env('PORT'),
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('PASSWORD'),
-    }
-}
+    'default': dj_database_url.parse('postgres://guard:osim5@checkpoint.devman.org:5434/checkpoint', conn_max_age=600)}
 
 INSTALLED_APPS = ['datacenter']
 
 SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = env.bool('DJ_DEBUG')
+DEBUG = env.bool('DB_DEBUG')
 
 ROOT_URLCONF = 'project.urls'
 
